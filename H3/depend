@@ -1,0 +1,4 @@
+$(O)/BKMP2Mex.o: BKMP2Mex.C /home/wang/matlab/qd-cuda-symplectic-2018/common-cuda/fort.h /home/wang/matlab/qd-cuda-symplectic-2018/common-cuda/matlabUtils.h
+$(O)/H3LSTHMex.o: H3LSTHMex.C /home/wang/matlab/qd-cuda-symplectic-2018/common-cuda/fort.h /home/wang/matlab/qd-cuda-symplectic-2018/common-cuda/matlabUtils.h
+$(O)/bkmp2.o: bkmp2.F
+$(O)/lsth_h3.o: lsth_h3.F
