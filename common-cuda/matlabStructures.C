@@ -148,7 +148,7 @@ void WavepacketParameters::setup_weighted_associated_legendres()
 
   if(MatlabData::theta()) {
     insist(n1 == MatlabData::theta()->n);
-    insist(MatlabData::theta()->n > l_max+1);
+    insist(MatlabData::theta()->n >= l_max+1);
   }
   
   insist(n2 == l_max-omega_min+1 && n3 == omega_max-omega_min+1);

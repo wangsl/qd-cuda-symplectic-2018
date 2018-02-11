@@ -5,7 +5,8 @@
 .SUFFIXES: .F .F90 .c .C
 
 SRC = $(PWD)
-O = /home/wang/matlab/quantum-dynamics-symplectic/build/HO2
+base_dir = /home/wang/matlab/qd-cuda-symplectic-2018
+O = $(base_dir)/build/HO2
 
 F77 = ifort
 F90 = ifort
@@ -18,11 +19,11 @@ CFLAGS = #-DI64
 FFLAGS = -132
 
 CXXFLAGS = -std=c++11 -I$(MATLAB_ROOT)/extern/include \
-	-I/home/wang/matlab/quantum-dynamics-symplectic/common-cuda
+	-I$(base_dir)/common-cuda
 
 Link = $(CXX)
 
-LIBS = -lifcoremt -L/home/wang/matlab/quantum-dynamics-symplectic/build/common-cuda -lqmdyn
+LIBS = -lifcoremt -L$(base_dir)/build/common-cuda -lqmdyn
 
 MEXA64Files = $(O)/DMBEIVMex.mexa64
 

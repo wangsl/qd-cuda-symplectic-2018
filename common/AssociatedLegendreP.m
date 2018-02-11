@@ -1,4 +1,5 @@
 
+
 function [ P ] = AssociatedLegendreP(OmegaMin, OmegaMax, lMax, x)
 
 assert(OmegaMin == 0 | OmegaMin == 1);

@@ -6,7 +6,8 @@
 
 
 SRC = $(PWD)
-O = /home/wang/matlab/quantum-dynamics-symplectic/build/common
+base_dir = /home/wang/matlab/qd-cuda-symplectic-2018
+O = $(base_dir)/build/common
 
 F77 = ifort
 CC = icc

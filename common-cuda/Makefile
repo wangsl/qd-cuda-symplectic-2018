@@ -5,7 +5,8 @@
 .SUFFIXES: .F .F90 .c .C
 
 SRC = $(PWD)
-O = /home/wang/matlab/quantum-dynamics-symplectic/build/common-cuda
+base_dir = /home/wang/matlab/qd-cuda-symplectic-2018
+O = $(base_dir)/build/common-cuda
 
 F77 = ifort
 F90 = ifort
