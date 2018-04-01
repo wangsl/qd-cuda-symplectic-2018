@@ -512,7 +512,8 @@ void OmegaWavepacket::propagate_with_symplectic_integrator(const int i_step)
   const int &n_theta = MatlabData::theta()->n;
   const double &dt = MatlabData::time()->time_step;
   
-  const int &size = SymplecticUtils::coeffients_m6_n4.size;
+  //const int &size = SymplecticUtils::coeffients_m6_n4.size;
+  const int &size = SymplecticUtils::size();
   
   insist(i_step < size);
   
@@ -522,10 +523,10 @@ void OmegaWavepacket::propagate_with_symplectic_integrator(const int i_step)
   
   if(weighted_psi_dev == weighted_psi_real_dev) {
     weighted_psi_dev = weighted_psi_imag_dev;
-    coeff = -SymplecticUtils::coeffients_m6_n4.b[i_step];
+    coeff = -SymplecticUtils::b()[i_step];
   } else {
     weighted_psi_dev = weighted_psi_real_dev;
-    coeff = SymplecticUtils::coeffients_m6_n4.a[i_step];
+    coeff = SymplecticUtils::a()[i_step];
   }
   
   coeff *= dt;

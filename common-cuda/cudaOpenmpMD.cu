@@ -231,7 +231,7 @@ void CUDAOpenmpMD::time_evolution()
 {
   omp_set_num_threads(n_devices());
   
-  const int &size = SymplecticUtils::coeffients_m6_n4.size;
+  const int &size = SymplecticUtils::size();
   
   const int n_steps = MatlabData::time()->total_steps;
   int &steps = MatlabData::time()->steps;
@@ -270,6 +270,11 @@ void CUDAOpenmpMD::time_evolution()
       energy += wavepackets_on_single_device[i_dev]->total_energy();
     }
     std::cout << " T " << module << " " << energy << std::endl;
+
+    if(module > 1.1) {
+      std::cout << "\n Error: Module is larger than 1.1\n" << std::endl;
+      exit(1);
+    }
     
     if(MatlabData::options()->wave_to_matlab &&
        steps%MatlabData::options()->steps_to_copy_psi_from_device_to_host == 0) {

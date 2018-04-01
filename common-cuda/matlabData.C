@@ -10,6 +10,12 @@ static EvolutionTime *_time = 0;
 static const Options *_options = 0;
 static WavepacketParameters *_wavepacket_parameters = 0;
 static CRPParameters *_crp_parameters = 0;
+static const SICoefficients *_si_coefficients = 0;
+
+// SI coefficients
+const SICoefficients *MatlabData::si_coefficients() { return _si_coefficients; }
+void MatlabData::si_coefficients(const SICoefficients *si)
+{ insist(si && !_si_coefficients); _si_coefficients = si; }
 
 // r1
 const RadialCoordinate *MatlabData::r1() { return _r1; }
@@ -71,6 +77,7 @@ void MatlabData::destroy_all_data()
   _FREE_(_options);
   _FREE_(_wavepacket_parameters);
   _FREE_(_crp_parameters);
+  _FREE_(_si_coefficients);
   _potential = 0;
 }
 

@@ -61,11 +61,23 @@ void mexFunction(int nlhs, mxArray *plhs[],
   mxPtr = mxGetField(prhs[0], 0, "CRP");
   insist(mxPtr);
   MatlabData::crp_parameters(new CRPParameters(mxPtr));
+
+  mxPtr = mxGetField(prhs[0], 0, "SI_coefficients");
+  if(mxPtr) MatlabData::si_coefficients(new SICoefficients(mxPtr));
   
   MatlabData::check_data();
 
   std::cout << *MatlabData::options() << std::endl;
   std::cout << *MatlabData::crp_parameters() << std::endl;
+
+  if(MatlabData::si_coefficients()) {
+    const int np = std::cout.precision();
+    std::cout.precision(16);
+    std::cout << " SI coefficients" << std::endl;
+    std::cout << *MatlabData::si_coefficients() << std::endl;
+    std::cout.flush();
+    std::cout.precision(np);
+  }
 
   CUDAOpenmpMD *evolCUDA = new CUDAOpenmpMD();
   insist(evolCUDA);

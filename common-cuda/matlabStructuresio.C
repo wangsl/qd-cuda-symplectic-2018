@@ -1,5 +1,5 @@
 
-/* created at: 2016-11-08 22:03:58 */
+/* created at: 2018-04-01 12:40:59 */
 
 #include <iostream>
 using namespace std;
@@ -57,6 +57,21 @@ void EvolutionTime::write_fields(ostream &s) const
   s << Indent() << "total_steps " << total_steps << "\n";
   s << Indent() << "time_step " << time_step << "\n";
   s << Indent() << "steps " << steps << "\n";
+}
+
+ostream & operator <<(ostream &s, const SICoefficients &c)
+{
+  s << " {\n";
+  IndentPush();
+  c.write_fields(s);
+  IndentPop();
+  return s << Indent() << " }";
+}
+
+void SICoefficients::write_fields(ostream &s) const
+{
+  s << Indent() << "a " << a << "\n";
+  s << Indent() << "b " << b << "\n";
 }
 
 ostream & operator <<(ostream &s, const Options &c)

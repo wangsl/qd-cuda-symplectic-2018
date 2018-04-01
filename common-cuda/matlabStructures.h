@@ -87,6 +87,29 @@ private:
   void write_fields(ostream &s) const;
 };
 
+class SICoefficients
+{
+public:
+  const int &m;
+  RVec a; // out
+  RVec b; // out
+
+  SICoefficients(const mxArray *mx);
+  ~SICoefficients() { if(mx); mx = 0; }
+
+public:
+
+  const mxArray *mx;
+  
+  // to prevent assigment and copy operation
+  SICoefficients(const SICoefficients &);
+  SICoefficients & operator =(const SICoefficients &);
+  
+  /* IO */
+  friend ostream & operator <<(ostream &s, const SICoefficients &c);
+  void write_fields(ostream &s) const;
+};
+
 class Options
 {
 public:

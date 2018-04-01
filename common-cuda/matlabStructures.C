@@ -223,22 +223,11 @@ void WavepacketParameters::setup_weighted_associated_legendres()
     insist(0);
     break;
   }
+}
 
-  /*
-  std::cout << " *** Binary file to test ***" << std::endl;
-
-  ofstream bout("AssLegP.bin", ios::out|ios::binary);
-
-  std::cout << " weighted_associated_legendres.size " << weighted_associated_legendres.size() << std::endl;
-  
-  bout.write((const char *) &weighted_associated_legendres.size(), sizeof(int));
-  for(int i = 0; i < weighted_associated_legendres.size(); i++) {
-    const int &n = weighted_associated_legendres[i].rows();
-    const int &m = weighted_associated_legendres[i].columns();
-    bout.write((const char *) &n, sizeof(int));
-    bout.write((const char *) &m, sizeof(int));
-    bout.write((const char *) (const double *) weighted_associated_legendres[i], n*m*sizeof(double));
-  }
-  bout.close();
-  */
+SICoefficients::SICoefficients(const mxArray *mx) :
+  mx(mx), m(*(int *) mxGetData(mx, "m", _mxInt32_))
+{
+  a = RVec(m, (double *) mxGetData(mx, "a"));
+  b = RVec(m, (double *) mxGetData(mx, "b"));
 }

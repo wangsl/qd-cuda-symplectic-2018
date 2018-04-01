@@ -32,6 +32,9 @@ namespace MatlabData
   CRPParameters *crp_parameters();
   void crp_parameters(CRPParameters *params);
 
+  const SICoefficients *si_coefficients();
+  void si_coefficients(const SICoefficients *si);
+
   void check_data();
   void destroy_all_data();
 };
