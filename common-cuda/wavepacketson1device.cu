@@ -19,6 +19,7 @@
 __constant__ EvolutionUtils::RadialCoordinate r1_dev;
 __constant__ EvolutionUtils::RadialCoordinate r2_dev;
 __constant__ double energies_dev[_EnergiesMaxSize_];
+__constant__ double potential_cutoff;
 
 WavepacketsOnSingleDevice::
 WavepacketsOnSingleDevice(const int device_index_,
@@ -208,6 +209,10 @@ void WavepacketsOnSingleDevice::setup_constant_memory_on_device()
 
   EvolutionUtils::copy_radial_coordinate_to_device(r1_dev, MatlabData::r1());
   EvolutionUtils::copy_radial_coordinate_to_device(r2_dev, MatlabData::r2());
+
+  checkCudaErrors(cudaMemcpyToSymbolAsync(potential_cutoff,
+					  &MatlabData::options()->potential_cutoff,
+					  sizeof(double)));
 
   copy_numerical_gradient_coefficients_to_device();
   copy_reaction_probabity_energies_to_device();

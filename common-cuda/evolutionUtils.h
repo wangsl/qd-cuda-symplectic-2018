@@ -64,6 +64,7 @@ extern __constant__ EvolutionUtils::RadialCoordinate r1_dev;
 extern __constant__ EvolutionUtils::RadialCoordinate r2_dev;
 extern __constant__ double energies_dev[_EnergiesMaxSize_];
 extern __constant__ double gradient_coeffients_dev[_GradientMaxSize_];
+extern __constant__ double potential_cutoff;
 #endif
 
 #endif /* EVOLUTION_UTILS_H */

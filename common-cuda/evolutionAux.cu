@@ -70,7 +70,7 @@ static __global__ void _add_potential_weighted_psi_to_H_weighted_psi_(double *HP
 								      const double *pot, const int n)
 {
   const int index = threadIdx.x + blockDim.x*blockIdx.x;
-  if(index < n) 
+  if(index < n && pot[index] <= potential_cutoff)
     HPsi[index] += pot[index]*psi[index];
 }
 
@@ -99,7 +99,10 @@ static __global__ void _add_T_bend_T_sym_to_T_angle_legendre_psi_dev_(double *Ta
     cudaUtils::index_2_ijk(index, n1, n2, nLegs, i, j, l);
     // l += omega;
     l = a*l + b;
-    TangPsi[index] += ((I1[i]+I2[j])*l*(l+1) + I1[i]*Tsym)*psi[index];
+    
+    const double e = (I1[i]+I2[j])*l*(l+1) + I1[i]*Tsym;
+    if(e <= potential_cutoff) TangPsi[index] += e*psi[index];
+    //TangPsi[index] += ((I1[i]+I2[j])*l*(l+1) + I1[i]*Tsym)*psi[index];
   }
 }
 
@@ -124,7 +127,9 @@ static __global__ void _add_T_asym_to_T_angle_legendre_psi_dev_(double *TangPsi,
     //l += OmegaMax;
     l = a*l + b;
     const double c = coriolisUtils::coriolis(J, l, Omega, Omega1);
-    TangPsi[index] += I1[i]*c*psi[index];
+    const double e = I1[i]*c;
+    if(e <= potential_cutoff) TangPsi[index] += e*psi[index];
+    //TangPsi[index] += I1[i]*c*psi[index];
   }
 }
 
@@ -147,6 +152,7 @@ static __global__ void _daxpy_(double *y, const double *x, const double alpha, c
     y[index] = alpha*x[index] + beta*y[index];
 }
 
+#if 0
 static __global__ void _setup_potential_scale_(int *scale, const double *pot_dev,
 					       const double cutoff, const int n)
 {
@@ -155,14 +161,13 @@ static __global__ void _setup_potential_scale_(int *scale, const double *pot_dev
     scale[index] = pot_dev[index] < cutoff ? 1 : 0;
 }
 
-
 static __global__ void _scale_wavepacket_with_potential_cutoff_(double *psi, const double *potential,
 								const double cutoff, const int n)
 {
   const int index = threadIdx.x + blockDim.x*blockIdx.x;
-  if(index < n)
-    if(potential[index] > cutoff) psi[index] = 0.0;
+  if(index < n && potential[index] > cutoff) psi[index] = 0.0;
 }
+#endif
 
 static __global__ void _psi_time_to_fai_energy_on_dividing_surface_
 (const int n, const int n_energies,

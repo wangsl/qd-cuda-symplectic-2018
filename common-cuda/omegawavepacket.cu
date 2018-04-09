@@ -535,6 +535,7 @@ void OmegaWavepacket::propagate_with_symplectic_integrator(const int i_step)
 		     H_weighted_psi_dev, 1,
 		     weighted_psi_dev, 1) == CUBLAS_STATUS_SUCCESS);
   
+#if 0
   const double &potential_cutoff = MatlabData::options()->potential_cutoff;
   if(potential_cutoff > _POTENTIAL_CUTOFF_) {
     
@@ -550,6 +551,7 @@ void OmegaWavepacket::propagate_with_symplectic_integrator(const int i_step)
 								      potential_cutoff,
 								      n1*n2*n_theta);
   }
+#endif
 }
 
 void OmegaWavepacket::dump_wavepacket() const
