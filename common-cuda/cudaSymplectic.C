@@ -73,9 +73,8 @@ void mexFunction(int nlhs, mxArray *plhs[],
   if(MatlabData::si_coefficients()) {
     const int np = std::cout.precision();
     std::cout.precision(16);
-    std::cout << " SI coefficients" << std::endl;
-    std::cout << *MatlabData::si_coefficients() << std::endl;
-    std::cout.flush();
+    std::cout << " SI coefficients\n"
+	      << *MatlabData::si_coefficients() << std::endl;
     std::cout.precision(np);
   }
 
@@ -86,11 +85,12 @@ void mexFunction(int nlhs, mxArray *plhs[],
   
   MatlabData::destroy_all_data();
   
-  std::cout << std::endl;  
-
+#if 0
   int n_cpu_cores = sysconf(_SC_NPROCESSORS_ONLN);
   omp_set_num_threads(n_cpu_cores);
+#endif
 
+  std::cout << std::endl;  
   std::cout.flush();
   std::cout.precision(np);
 }

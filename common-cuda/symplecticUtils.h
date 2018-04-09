@@ -23,17 +23,20 @@ namespace SymplecticUtils {
   inline int size()
   { return MatlabData::si_coefficients() ?
       MatlabData::si_coefficients()->m :
-      sizeof(coeffients_m6_n4.a)/sizeof(double); }
+      sizeof(coeffients_m6_n4.a)/sizeof(double);
+  }
   
   inline const double *a()
   { return MatlabData::si_coefficients() ?
       (const double *) MatlabData::si_coefficients()->a :
-      coeffients_m6_n4.a; }
+      coeffients_m6_n4.a;
+  }
   
   inline const double *b()
   { return MatlabData::si_coefficients() ?
       (const double *) MatlabData::si_coefficients()->b :
-      coeffients_m6_n4.b; }
+      coeffients_m6_n4.b;
+  }
 }
 
 #endif /* SYMPLECTIC_UTILS_H */
