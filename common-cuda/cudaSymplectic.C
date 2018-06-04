@@ -9,6 +9,7 @@
 #include "matlabStructures.h"
 #include "matlabData.h"
 #include "cudaOpenmpMD.h"
+#include "symplecticUtils.h"
 
 void mexFunction(int nlhs, mxArray *plhs[],
                  int nrhs, const mxArray *prhs[])
@@ -69,15 +70,15 @@ void mexFunction(int nlhs, mxArray *plhs[],
 
   std::cout << *MatlabData::options() << std::endl;
   std::cout << *MatlabData::crp_parameters() << std::endl;
-
-  if(MatlabData::si_coefficients()) {
-    const int np = std::cout.precision();
-    std::cout.precision(16);
-    std::cout << " SI coefficients\n"
-	      << *MatlabData::si_coefficients() << std::endl;
-    std::cout.precision(np);
-  }
-
+  
+  const int np_ = std::cout.precision();
+  std::cout.precision(16);
+  std::cout << " SI coefficients "
+	    << RVec(SymplecticUtils::size(),
+		    const_cast<double *>(SymplecticUtils::a()))
+	    << std::endl;
+  std::cout.precision(np_);
+  
   CUDAOpenmpMD *evolCUDA = new CUDAOpenmpMD();
   insist(evolCUDA);
   evolCUDA->time_evolution();

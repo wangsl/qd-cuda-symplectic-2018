@@ -12,8 +12,8 @@
 #define _RotStatesOdd_ 1
 #define _RotStatesEven_ 2
 
-#define _DumpMaxSize_ 1024
-#define _EnergiesMaxSize_ 512
+#define _DumpMaxSize_ 2048
+#define _EnergiesMaxSize_ 1024
 
 namespace EvolutionUtils {
 
@@ -57,6 +57,9 @@ namespace EvolutionUtils {
   inline int int_to_even_left(const int i) { return i/2*2 == i ? i : i-1; }  
   inline int int_to_odd_right(const int i) { return i/2*2 == i ? i+1 : i; }
   inline int int_to_odd_left(const int i) { return i/2*2 == i ? i-1 : i; }
+
+  inline double au_to_fs(const double t) { return t*0.0241888425; }
+  inline double fs_to_au(const double t) { return t/au_to_fs(1.0); }
 }
 
 #ifdef __NVCC__
@@ -65,6 +68,7 @@ extern __constant__ EvolutionUtils::RadialCoordinate r2_dev;
 extern __constant__ double energies_dev[_EnergiesMaxSize_];
 extern __constant__ double gradient_coeffients_dev[_GradientMaxSize_];
 extern __constant__ double potential_cutoff;
+//extern __constant__ double kinetic_cutoff;
 #endif
 
 #endif /* EVOLUTION_UTILS_H */

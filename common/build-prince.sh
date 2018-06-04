@@ -49,7 +49,7 @@
 #export F77=ifort
 #export FFLAGS="$CFLAGS"
 
-#grep "module load" build-caffe.sh | grep -v "#grep" | awk '{printf "%s(\"%s\")\n", $2, $3}'
+# grep "module load" build-caffe.sh | grep -v "#grep" | awk '{printf "%s(\"%s\")\n", $2, $3}'
 
 set -e
 

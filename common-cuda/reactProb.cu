@@ -105,7 +105,7 @@ void ReactionProbabilities::psi_time_to_fai_energy_on_dividing_surface() const
      fai_on_surface_dev, d_fai_on_surface_dev);
 }
 
-void ReactionProbabilities::_calculate_reaction_probabilities()
+void ReactionProbabilities::calculate_reaction_probabilities()
 {
   const int &n1 = MatlabData::r1()->n;
   const int &n_theta = MatlabData::theta()->n;
@@ -132,11 +132,11 @@ void ReactionProbabilities::_calculate_reaction_probabilities()
   }
 }
 
-void  ReactionProbabilities::calculate_reaction_probabilities(const int calculate)
+void ReactionProbabilities::calculate_reaction_probabilities(const int calculate)
 {
   calculate_psi_gradients_on_dividing_surface();
   
   psi_time_to_fai_energy_on_dividing_surface();
   
-  if(calculate) _calculate_reaction_probabilities();
+  if(calculate) calculate_reaction_probabilities();
 }

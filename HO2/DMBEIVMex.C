@@ -1,6 +1,5 @@
 
 #include <iostream>
-using namespace std;
 #include <cassert>
 #include <cstring>
 #include <mex.h>

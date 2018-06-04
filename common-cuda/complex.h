@@ -9,7 +9,6 @@ using namespace std;
 #include <cmath>
 #include <cstdlib>
 #include <cstdio>
-//#include <cufft.h>
 
 #ifdef __NVCC__
 #define __DEVICE_HOST__ __device__ __host__

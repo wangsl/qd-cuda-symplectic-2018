@@ -1,4 +1,4 @@
-$(O)/cudaSymplectic.o: cudaSymplectic.C matlabUtils.h matlabArray.h matlabStructures.h rmat.h matbase.h vecbase.h lst.h die.h indent.h fort.h rvecalgo.h rmatalgo.h fint.h matlabData.h cudaOpenmpMD.h wavepacketson1device.h omegawavepacket.h
+$(O)/cudaSymplectic.o: cudaSymplectic.C matlabUtils.h matlabArray.h matlabStructures.h rmat.h matbase.h vecbase.h lst.h die.h indent.h fort.h rvecalgo.h rmatalgo.h fint.h matlabData.h cudaOpenmpMD.h wavepacketson1device.h omegawavepacket.h symplecticUtils.h
 $(O)/cudaUtils.o: cudaUtils.C cudaUtils.h matlabUtils.h 
 $(O)/die.o: die.C die.h matlabUtils.h 
 $(O)/indent.o: indent.C indent.h

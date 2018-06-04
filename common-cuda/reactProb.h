@@ -33,7 +33,7 @@ private:
 
   void calculate_psi_gradients_on_dividing_surface();
   void psi_time_to_fai_energy_on_dividing_surface() const;
-  void _calculate_reaction_probabilities();
+  void calculate_reaction_probabilities();
 };
 
 #endif /* REACTION_PROBABILITIES_H */

@@ -232,16 +232,25 @@ void CUDAOpenmpMD::time_evolution()
   omp_set_num_threads(n_devices());
   
   const int &size = SymplecticUtils::size();
-  
-  const int n_steps = MatlabData::time()->total_steps;
+  const int &n_steps = MatlabData::time()->total_steps;
+  const double &dt = MatlabData::time()->time_step;
+
   int &steps = MatlabData::time()->steps;
-  
+
   for(int i_step = 0; i_step < n_steps; i_step++) {
     
     steps++;
 
-    std::cout << "\n Step: " << steps << ", " << time_now() << std::endl;
-
+    const int np = std::cout.precision();
+    
+    std::cout.precision(3);
+    std::cout << std::fixed 
+	      << "\n Step: " << steps << ", " << time_now() << "\n"
+	      << " Time: " << steps*dt << " au, " << EvolutionUtils::au_to_fs(steps*dt) << " fs"
+	      << std::endl;
+    std::cout.unsetf(std::ios_base::floatfield);
+    std::cout.precision(np);
+    
     const double time_start = get_time_now_in_secs();
     
     checkCudaErrors(cudaProfilerStart());
@@ -285,10 +294,11 @@ void CUDAOpenmpMD::time_evolution()
 
     const double time_end = get_time_now_in_secs();
     
-    const int np = std::cout.precision();
     std::cout.precision(3);
-    std::cout << " Elapsed wall time " << time_end - time_start << " secs" << std::endl;
+    std::cout << std::fixed
+	      << " Elapsed wall time " << time_end - time_start << " secs" << std::endl;
     std::cout.flush();
+    std::cout.unsetf(std::ios_base::floatfield);
     std::cout.precision(np);
   }
   std::cout << std::endl;

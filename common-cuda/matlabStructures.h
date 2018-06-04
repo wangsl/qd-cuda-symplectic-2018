@@ -117,6 +117,7 @@ public:
   char *wave_to_matlab; // out
   const int &steps_to_copy_psi_from_device_to_host; // out
   const double &potential_cutoff; // out
+  // const double &kinetic_cutoff;
   const int &calculate_reaction_probabilities; // out
   int &rotational_states; // out
   

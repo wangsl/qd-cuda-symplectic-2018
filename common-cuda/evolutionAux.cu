@@ -47,6 +47,16 @@ static __global__ void _psi_times_kinetic_energy_(Complex *psi_out, const Comple
   if(index < (n1/2+1)*n2*n_theta) {
     int i = -1; int j = -1; int k = -1;
     cudaUtils::index_2_ijk(index, n1/2+1, n2, n_theta, i, j, k);
+
+#if 0
+    const double e = kin1[i] + kin2[j];
+    if(e <= kinetic_cutoff) {
+      psi_out[index] = e*psi_in[index];
+    } else {
+      psi_out[index].zero();
+    }
+#endif
+    
     psi_out[index] = (kin1[i] + kin2[j])*psi_in[index];
   }
 }

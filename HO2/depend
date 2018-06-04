@@ -1,2 +1,2 @@
-$(O)/DMBEIVMex.o: DMBEIVMex.C /home/wang/matlab/quantum-dynamics-symplectic/common-cuda/fort.h /home/wang/matlab/quantum-dynamics-symplectic/common-cuda/matlabUtils.h
+$(O)/DMBEIVMex.o: DMBEIVMex.C /home/wang/matlab/qd-cuda-symplectic-2018/common-cuda/fort.h /home/wang/matlab/qd-cuda-symplectic-2018/common-cuda/matlabUtils.h
 $(O)/dmbeiv.o: dmbeiv.F
