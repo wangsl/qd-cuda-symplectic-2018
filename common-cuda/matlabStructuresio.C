@@ -1,5 +1,5 @@
 
-/* created at: 2018-05-29 22:54:41 */
+/* created at: 2018-06-09 13:18:29 */
 
 #include <iostream>
 using namespace std;
@@ -91,6 +91,8 @@ void Options::write_fields(ostream &s) const
   s << Indent() << "potential_cutoff " << potential_cutoff << "\n";
   s << Indent() << "calculate_reaction_probabilities " << calculate_reaction_probabilities << "\n";
   s << Indent() << "rotational_states " << rotational_states << "\n";
+  s << Indent() << "converged_criterion_with_module " << converged_criterion_with_module << "\n";
+  s << Indent() << "catastrophe_criterion_with_module " << catastrophe_criterion_with_module << "\n";
 }
 
 ostream & operator <<(ostream &s, const WavepacketParameters &c)

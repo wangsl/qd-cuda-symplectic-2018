@@ -68,12 +68,12 @@ function main()
     export CPATH=
     export LD_LIBRARY_PATH=
 
-    module load intel/17.0.1
+    module load intel/19.0.1
     module load matlab/2017b
-    module load cuda/9.0.176
+    #module load cuda/9.0.176
 
     export MY_INTEL_PATH=~wang/bin/intel
-    export NVCC_PATH=$MY_INTEL_PATH/cuda/9.0.176/bin
+    #export NVCC_PATH=$MY_INTEL_PATH/cuda/9.0.176/bin
     
     local util=$MY_INTEL_PATH/util.sh
     if [ -e $util ]; then
@@ -88,7 +88,7 @@ function main()
     export GNU_BIN_PATH=$(dirname $(which gcc))
     export INTEL_BIN_PATH=$(dirname $(which icc))
     #export INTEL_MPI_BIN_PATH=$(dirname $(which mpicc))
-    export NVCC_BIN_PATH=$(dirname $(which nvcc))
+    #export NVCC_BIN_PATH=$(dirname $(which nvcc))
     
     export INVALID_FLAGS_FOR_GNU_COMPILERS="-O -O0 -O1 -O2 -O3 -g -g0"
     export OPTIMIZATION_FLAGS_FOR_GNU_COMPILERS="-fPIC -fopenmp -mavx2"

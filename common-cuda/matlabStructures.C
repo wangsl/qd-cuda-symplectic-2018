@@ -50,7 +50,9 @@ Options::Options(const mxArray *mx) :
   (*(int *) mxGetData(mx, "steps_to_copy_psi_from_device_to_host", _mxInt32_)),
   
   potential_cutoff(*(double *) mxGetData(mx, "potential_cutoff")),
-  //kinetic_cutoff(*(double *) mxGetData(mx, "kinetic_cutoff")),
+
+  converged_criterion_with_module(*(double *) mxGetData(mx, "converged_criterion_with_module")),
+  catastrophe_criterion_with_module(*(double *) mxGetData(mx, "catastrophe_criterion_with_module")),
 
   rotational_states(*(int *) mxGetData(mx, "rotational_states", _mxInt32_)),
   

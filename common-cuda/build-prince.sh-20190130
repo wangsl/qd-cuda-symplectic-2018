@@ -62,8 +62,7 @@ function special_rules()
 
 function setup_cuda_compilers()
 {
-    module load cuda/10.0.130
-    #module load cuda/10.1.105
+    module load cuda/9.2.88
     local nvcc_version=$(nvcc --version | \
 			     grep "Cuda compilation tools, release" |  \
 			     awk '{print $NF}' | sed -e 's/[a-zA-Z]//g')
@@ -78,7 +77,7 @@ function main()
     export CPATH=
     export LD_LIBRARY_PATH=
 
-    module load intel/19.0.1
+    module load intel/17.0.1
     module load matlab/2017b
     
     export MY_INTEL_PATH=~wang/bin/intel
@@ -105,9 +104,9 @@ function main()
     
     export INVALID_FLAGS_FOR_INTEL_COMPILERS="-O -O0 -O1 -O2 -O3 -g -g0 -lm -xhost -fast"
 
-    export OPTIMIZATION_FLAGS_FOR_INTEL_COMPILERS="-fPIC -unroll -ip -axCORE-AVX512 -qopenmp -qopt-report-stdout -qopt-report-phase=openmp"
+    export OPTIMIZATION_FLAGS_FOR_INTEL_COMPILERS="-fPIC -unroll -ip -axCORE-AVX2 -qopenmp -qopt-report-stdout -qopt-report-phase=openmp"
     
-    export OPTIMIZATION_FLAGS_FOR_INTEL_FORTRAN_COMPILERS="-fPIC -unroll -ip -axCORE-AVX512 -qopenmp -qopt-report-stdout -qopt-report-phase=openmp"
+    export OPTIMIZATION_FLAGS_FOR_INTEL_FORTRAN_COMPILERS="-fPIC -unroll -ip -axCORE-AVX2 -qopenmp -qopt-report-stdout -qopt-report-phase=openmp"
 
     #export INVALID_FLAGS_FOR_NVCC_COMPILERS="-O0 -O1 -O2 -O3 -O"
     export OPTIMIZATION_FLAGS_FOR_NVCC_COMPILERS="-Wno-deprecated-gpu-targets"

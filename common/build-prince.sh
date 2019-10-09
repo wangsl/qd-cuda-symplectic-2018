@@ -77,7 +77,7 @@ function main()
     module purge
     export CPATH=
     export LD_LIBRARY_PATH=
-    module load intel/17.0.1
+    module load intel/19.0.1
 
     module load matlab/2017b
 

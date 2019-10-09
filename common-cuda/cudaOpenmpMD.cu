@@ -280,13 +280,16 @@ void CUDAOpenmpMD::time_evolution()
     }
     std::cout << " T " << module << " " << energy << std::endl;
 
-    if(module > 1.1) {
-      std::cout << "\n Error: Module is larger than 1.1\n" << std::endl;
+    const double &max_module = MatlabData::options()->catastrophe_criterion_with_module;
+    if(module > max_module) {
+      std::cout << "\n Error: Module is larger than " << max_module << "\n" << std::endl;
       exit(1);
     }
+
+    const int converged = module < MatlabData::options()->converged_criterion_with_module ? 1 : 0;
     
     if(MatlabData::options()->wave_to_matlab &&
-       steps%MatlabData::options()->steps_to_copy_psi_from_device_to_host == 0) {
+       (steps%MatlabData::options()->steps_to_copy_psi_from_device_to_host == 0 || converged)) {
       copy_weighted_psi_from_device_to_host();
       mex_to_matlab(MatlabData::options()->wave_to_matlab);
       devices_synchoronize();
@@ -300,8 +303,16 @@ void CUDAOpenmpMD::time_evolution()
     std::cout.flush();
     std::cout.unsetf(std::ios_base::floatfield);
     std::cout.precision(np);
+
+    if(converged) {
+      std::cout << "\n"
+		<< " Simulation has finished with module " << module
+		<< " less than criterion " << MatlabData::options()->converged_criterion_with_module
+		<< std::endl;
+      break;
+    }
   }
   std::cout << std::endl;
 }
 
-  
+

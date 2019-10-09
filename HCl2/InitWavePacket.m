@@ -1,5 +1,5 @@
 
-function [ psi, eH2, psiH2 ] = InitWavePacket(R1, R2, Theta, jRot, nVib)
+function [ psi, eCl2 ] = InitWavePacket(R1, R2, Theta, jRot, Omega, nVib)
 
 n1 = R1.n;
 n2 = R2.n;
@@ -15,14 +15,17 @@ G = (1/(pi*delta^2))^(1/4) * ...
 
 fprintf(' Gaussian wavepacket module: %.15f\n', sum(conj(G).*G)*R1.dr);
 
-[ eH2, phiH2 ] = H2VibRotWaveFunction(R2, jRot, nVib);
+[ eCl2, phiCl2 ] = Cl2VibRotWaveFunction(R2, jRot, nVib);
+
+% Initial rotational state: P(jRot, Omega)
+% Index: Omega+1
 
 P = legendre(jRot, Theta.x, 'norm');
+P = P(Omega+1, :);
 
-fprintf(' Legendre polynomail module: %.15f\n', ...
-	sum(P.^2.*Theta.w));
+fprintf(' Legendre polynomail module: %.15f\n', sum(P.^2.*Theta.w));
 
-GPhi = G'*phiH2;
+GPhi = G'*phiCl2;
 
 GPhi = reshape(GPhi, [1, numel(GPhi)]);
 
