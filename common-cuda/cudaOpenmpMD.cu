@@ -129,6 +129,7 @@ void CUDAOpenmpMD::destroy_wavepackets_on_single_device()
   wavepackets_on_single_device.resize(0);
 }
 
+#if 0
 void CUDAOpenmpMD::enable_peer_to_peer_access() const
 { 
   if(n_devices() == 1) return;
@@ -145,7 +146,27 @@ void CUDAOpenmpMD::enable_peer_to_peer_access() const
     }
   }
 }
+#endif
 
+void CUDAOpenmpMD::enable_peer_to_peer_access() const
+{ 
+  if(n_devices() == 1) return;
+  
+  std::cout << " Enable peer to peer memory access" << std::endl;
+  
+  for(int i_dev = 0; i_dev < n_devices(); i_dev++) {
+
+    checkCudaErrors(cudaSetDevice(i_dev));
+    
+    const int left = i_dev - 1;
+    if(left >= 0) checkCudaErrors(cudaDeviceEnablePeerAccess(left, 0));
+    
+    const int right = i_dev + 1;
+    if(right < n_devices()) checkCudaErrors(cudaDeviceEnablePeerAccess(right, 0));
+  }
+}
+
+#if 0
 void CUDAOpenmpMD::disable_peer_to_peer_access() const
 {
   if(n_devices() == 1) return;
@@ -160,6 +181,25 @@ void CUDAOpenmpMD::disable_peer_to_peer_access() const
       checkCudaErrors(cudaSetDevice(j_dev));
       checkCudaErrors(cudaDeviceDisablePeerAccess(i_dev));
     }
+  }
+}
+#endif
+
+void CUDAOpenmpMD::disable_peer_to_peer_access() const
+{
+  if(n_devices() == 1) return;
+  
+  std::cout << " Disable peer to peer memory access" << std::endl;
+  
+  for(int i_dev = 0; i_dev < n_devices(); i_dev++) {
+
+    checkCudaErrors(cudaSetDevice(i_dev));
+
+    const int left = i_dev - 1;
+    if(left >= 0) checkCudaErrors(cudaDeviceDisablePeerAccess(left));
+    
+    const int right = i_dev + 1;
+    if(right < n_devices()) checkCudaErrors(cudaDeviceDisablePeerAccess(right));
   }
 }
 
