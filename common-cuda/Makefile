@@ -5,7 +5,7 @@
 .SUFFIXES: .F .F90 .c .C
 
 SRC = $(PWD)
-base_dir = /home/wang/matlab/qd-cuda-symplectic-2018
+base_dir = $(SRC)/..
 O = $(base_dir)/build/common-cuda
 
 F77 = ifort
@@ -41,7 +41,7 @@ CUDAArchs= \
 	-gencode arch=compute_37,code=sm_37 \
 	-gencode arch=compute_52,code=sm_52 \
 	-gencode arch=compute_52,code=compute_52 \
-	-Xcompiler="-fPIC -pthread -fexceptions -m64 -fopenmp"
+	-Xcompiler=\"-fPIC -pthread -fexceptions -m64 -fopenmp\"
 
 
 NVCCFLAGS = $(NVCCINCLUDE) $(CUDAArchs) -prec-div=true -prec-sqrt=true -rdc=true -std=c++11 

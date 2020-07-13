@@ -30,6 +30,7 @@ private:
   T *_data;
 };
 
+#ifdef MATLAB2017b
 class MatlabComplexArray : public MatlabArray<double>
 {
 public:
@@ -53,5 +54,47 @@ public:
 private:
   double *_imag_data;
 };
+
+#else
+
+// for Matlab after 2018a and after
+
+class MatlabComplexArray
+{
+public:
+
+  MatlabComplexArray(const mxArray *mx_, const mxArray *my_) :
+    x(MatlabArray<double>(mx_)),
+    y(MatlabArray<double>(my_))
+  {
+    insist(mxIsDouble(mx_));
+    insist(mxIsDouble(my_));
+    check_dims();
+  }
+
+  ~MatlabComplexArray() { }
+
+  int n_dims() const  { return x.n_dims(); }
+  const size_t *dims() const { return x.dims(); }
+
+  const double *real() const { return x.data(); }
+  const double *imag() const { return y.data(); }
+
+private:
+
+  MatlabArray<double> x;
+  MatlabArray<double> y;
+
+  void check_dims() const
+  {
+    insist(x.n_dims() == y.n_dims());
+
+    const size_t *x_dims = x.dims();
+    const size_t *y_dims = y.dims();
+    for(int i = 0; i < x.n_dims(); i++)
+      insist(x_dims[i] == y_dims[i]);
+  }
+};
+#endif
 
 #endif /* MATLABARRAY_H */

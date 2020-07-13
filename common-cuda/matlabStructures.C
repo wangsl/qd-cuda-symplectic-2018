@@ -102,8 +102,16 @@ void WavepacketParameters::setup_weighted_wavepackets()
 { 
   const mxArray *wps_ptr = mxGetField(mx, 0, "weighted_wavepackets");
   insist(wps_ptr);
-  
+
+#ifdef MATLAB2017b
   const MatlabComplexArray wps(wps_ptr);
+#else
+  const mxArray *wps_real_ptr = mxGetField(wps_ptr, 0, "real");
+  insist(wps_real_ptr);
+  const mxArray *wps_imag_ptr = mxGetField(wps_ptr, 0, "imag");
+  insist(wps_imag_ptr);
+  const MatlabComplexArray wps(wps_real_ptr, wps_imag_ptr);
+#endif
   
   const size_t *dims = wps.dims();
 

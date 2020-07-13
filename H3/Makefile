@@ -5,7 +5,7 @@
 .SUFFIXES: .F .F90 .c .C
 
 SRC = $(PWD)
-base_dir = /home/wang/matlab/qd-cuda-symplectic-2018
+base_dir = $(SRC)/..
 O = $(base_dir)/build/H3
 
 F77 = ifort
@@ -17,7 +17,7 @@ CFLAGS =
 
 CXXFLAGS = -std=c++0x -I$(MATLAB_ROOT)/extern/include -I$(base_dir)/common-cuda
 
-FFLAGS = #-132
+FFLAGS = -132
 
 Link = $(CXX)
 

@@ -4,9 +4,8 @@
 .DEFAULT: .F .For .c .C .cpp .cc .F90
 .SUFFIXES: .F .For .c .C .cpp .cc .F90
 
-
 SRC = $(PWD)
-base_dir = /home/wang/matlab/qd-cuda-symplectic-2018
+base_dir = $(SRC)/..
 O = $(base_dir)/build/common
 
 F77 = ifort
