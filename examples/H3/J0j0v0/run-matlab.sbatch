@@ -1,41 +1,47 @@
 #!/bin/bash
 
-#SBATCH --job-name=H3v0
+#SBATCH --job-name=H3
 #SBATCH --nodes=1
-#SBATCH --cpus-per-task=7
-#SBATCH --time=12:00:00
-#SBATCH --mem=40GB
-#SBATCH --gres=gpu:p100:1
+#SBATCH --ntasks-per-node=1
+#SBATCH --cpus-per-task=4
+#SBATCH --time=5:00:00
+#SBATCH --mem=5GB
+#SBATCH --gres=gpu:v100:1
 
-function cleanup_tmp()
-{
-    if [[ $base_dir =~ ^/state/partition1/$USER ]]; then
-        rm -rf $base_dir
-    fi
-}
+intel=/scratch/work/wang/centos-8/intel-19.1.1.sqf:ro
+cuda_1102=/scratch/work/wang/centos-8/cuda-11.0.2.sqf:ro
+matlab_2020a=/scratch/work/wang/centos-8/matlab-2020a.sqf:ro
 
-#trap cleanup_tmp SIGKILL EXIT
-
-module purge
+all=$intel,$cuda_1102,$matlab_2020a
 
 if [ "$SLURM_JOB_TMPDIR" != "" ]; then
     base_dir=$SLURM_JOB_TMPDIR
 else
-    base_dir=/state/partition1/$USER/matlab-$$
+    base_dir=/state/partition1/$USER
 fi
+
 mkdir -p $base_dir
 
 export MATLAB_PREFDIR=$(mktemp -d $base_dir/matlab-XXXX)
 
-rm -rf potwave crp
-mkdir -p potwave crp
+rm -rf crp/* potwave/*
 
-export CUDA_VISIBLE_DEVICES=0
+singularity exec --nv \
+	    --bind $MATLAB_PREFDIR:$HOME/.matlab \
+            --overlay $all \
+            /scratch/work/wang/centos-8/centos-8.2.2004.sif \
+            /bin/bash -c "
+source /opt/apps/lmod/lmod/init/bash
+export LMOD_DISABLE_SAME_NAME_AUTOSWAP=yes
+module unuse /share/apps/modulefiles
+module use /ext3/apps/modulefiles   
 
-singularity exec --nv --bind $base_dir:$HOME/.matlab \
-	    /home/wang/singularity-images/centos-7.6.1810.sif \
-	    /share/apps/matlab/2019a/bin/matlab  -nodisplay -r \
-	    "main(0,0); exit"
-
+module purge
+module load matlab/2020a
+module load cuda/11.0.2
+module load intel/19.1.1
+matlab -nodisplay -r 'main(0,0); exit'
+exit
+"
 
 
