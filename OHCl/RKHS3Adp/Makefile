@@ -5,8 +5,8 @@
 .SUFFIXES: .F .F90 .c .C
 
 SRC = $(PWD)
+base_dir=$(SRC)/..
 O = $(base_dir)/build/OHCl/RKHS3Adp
-base_dir = /home/wang/matlab/qd-cuda-symplectic-2018
 
 F77 = ifort
 F90 = ifort
