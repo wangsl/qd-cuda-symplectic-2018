@@ -5,19 +5,20 @@
 .SUFFIXES: .F .For .c .C .cpp .cc .F90
 
 SRC = $(PWD)
-O = $(SRC)/../../build/common
+base_dir = $(SRC)/..
+O = $(base_dir)/build/common
 
-F77 = gfortran
-CC = gcc
-CCC = g++
+F77 = ifort
+CC = icc
+CCC = icpc
 
-CFLAGS = -O3 -fPIC -fopenmp -I$(MATLAB_ROOT)/extern/include
+CFLAGS = -I$(MATLAB_ROOT)/extern/include
 
-FFLAGS = -O3 -fPIC -fopenmp
+FFLAGS = 
 
 Link = $(CCC) $(FFLAGS)
 
-LIBS = -lgfortran #-lifcoremt -lifport
+LIBS = -lifcoremt -lifport
 
 MEXA64Files = $(O)/GaussLegendreGridsMex.mexa64 $(O)/fcnpakMex.mexa64
 
@@ -57,7 +58,7 @@ clean:
 
 depend :
 	$(CCC) $(CFLAGS) -MM *.[cC] | perl dep.pl > $@
-	bash dep.sh *.F >> $@
+	sh dep.sh *.F >> $@
 
 ifneq ($(MAKECMDGOALS), clean)
 include depend

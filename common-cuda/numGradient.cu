@@ -1,6 +1,4 @@
 
-#include <helper_cuda.h>
-
 #include "cudaUtils.h"
 #include "numGradient.h"
 #include "complex.h"

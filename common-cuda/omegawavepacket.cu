@@ -1,6 +1,5 @@
 
 #include <iostream>
-#include <helper_cuda.h>
 
 #include "omegawavepacket.h"
 #include "cudaUtils.h"

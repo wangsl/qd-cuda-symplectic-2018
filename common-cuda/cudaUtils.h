@@ -7,6 +7,17 @@
 #include <cublas_v2.h>
 #include <cufft.h>
 
+#define CHECK(cmd)                              \
+  {                                             \
+    cudaError_t error  = cmd;                   \
+    if (error != cudaSuccess) {                                         \
+      fprintf(stderr, "error: '%s'(%d) at %s:%d\n", cudaGetErrorString(error), error,__FILE__, __LINE__); \
+      exit(EXIT_FAILURE);                                               \
+    }                                                                   \
+  }
+
+#define checkCudaErrors(x) CHECK(x)
+
 #define _CUDA_FREE_(x) if(x) { checkCudaErrors(cudaFree(x)); x = 0; }
 
 #define _CUDA_STREAM_CREATE_(x) {					\

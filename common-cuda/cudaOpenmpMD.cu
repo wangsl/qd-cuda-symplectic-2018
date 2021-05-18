@@ -1,6 +1,5 @@
 
 #include <iostream>
-#include <helper_cuda.h>
 #include <omp.h>
 #include <cuda_profiler_api.h>
 

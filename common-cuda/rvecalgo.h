@@ -7,6 +7,8 @@
    P223
 */
 
+#if 0
+
 #ifndef RVECALGO_H
 #define RVECALGO_H
 
@@ -43,3 +45,6 @@ inline Scalar_RVec_Sum operator +(const RVec &y, const Scalar_RVec &ax)
 { return Scalar_RVec_Sum(ax, y); }
 
 #endif /* RVECALGO_H */
+
+#endif
+

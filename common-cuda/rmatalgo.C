@@ -1,6 +1,8 @@
 
 /* $Id$ */
 
+#if 0
+
 #include "rmat.h"
 
 RVec::RVec(const Scalar_RVec &ax) : Vec<double>(ax.rvec.size())
@@ -103,3 +105,6 @@ RVec & RVec::operator =(const Scalar_RMat_RVec &aAx)
   }
   return *this;
 }
+
+#endif
+

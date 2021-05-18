@@ -1,5 +1,4 @@
 
-#include <helper_cuda.h>
 #include "matlabData.h"
 
 static const RadialCoordinate *_r1 = 0;

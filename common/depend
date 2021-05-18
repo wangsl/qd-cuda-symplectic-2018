@@ -1,5 +1,5 @@
-$(O)/GaussLegendreGridsMex.o: GaussLegendreGridsMex.C /ext3/apps/matlab/2020a/extern/include/mex.h /ext3/apps/matlab/2020a/extern/include/matrix.h /ext3/apps/matlab/2020a/extern/include/tmwtypes.h
-$(O)/fcnpakMex.o: fcnpakMex.C /ext3/apps/matlab/2020a/extern/include/mex.h /ext3/apps/matlab/2020a/extern/include/matrix.h /ext3/apps/matlab/2020a/extern/include/tmwtypes.h
+$(O)/GaussLegendreGridsMex.o: GaussLegendreGridsMex.C 
+$(O)/fcnpakMex.o: fcnpakMex.C 
 $(O)/dgamma.o: dgamma.F
 $(O)/fcnpak.o: fcnpak.F
 $(O)/gaussq.o: gaussq.F

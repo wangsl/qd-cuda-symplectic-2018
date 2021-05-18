@@ -1,6 +1,8 @@
 
 /* $Id$ */
 
+#if 0
+
 #ifndef RMATALOG_H
 #define RMATALOG_H
 
@@ -48,3 +50,6 @@ inline Scalar_RVec_RMat operator *(const RVec &x, const RMat &A)
 { return Scalar_RVec_RMat(Scalar_RVec(1.0, x), A); }
 
 #endif /* RMATALOG_H */
+
+#endif
+

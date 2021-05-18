@@ -5,23 +5,22 @@
 .SUFFIXES: .F .F90 .c .C
 
 SRC = $(PWD)
-base_dir = $(SRC)/..
-O = $(base_dir)/build/H3
+O = $(SRC)/../../build/H3
 
-F77 = ifort
-F90 = ifort
-CC = icc
-CXX = icpc
+F77 = gfortran
+F90 = gfotran
+CC = gcc
+CXX = g++
 
-CFLAGS =  
+CFLAGS = -O3 -fopenmp -fPIC 
 
-CXXFLAGS = -std=c++0x -I$(MATLAB_ROOT)/extern/include -I$(base_dir)/common-cuda
+CXXFLAGS = -O3 -fopenmp -fPIC -std=c++0x -I$(MATLAB_ROOT)/extern/include -I$(SRC)/../common-cuda
 
-FFLAGS = -132
+FFLAGS = -O3 -fPIC -fopenmp -ffixed-line-length-132
 
 Link = $(CXX)
 
-LIBS = -lifcoremt -L$(base_dir)/build/common-cuda -lqmdyn
+LIBS =  -L$(SRC)/../../build/common-cuda -lqmdyn -lgfortran
 
 MEXA64Files = $(O)/BKMP2Mex.mexa64 $(O)/H3LSTHMex.mexa64
 

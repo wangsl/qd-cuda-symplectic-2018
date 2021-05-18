@@ -1,7 +1,7 @@
 /* $Id$ */
 
 #ifndef MATBASE_H
-#define MATNASE_H
+#define MATBASE_H
 
 #include <iostream>
 using namespace std;

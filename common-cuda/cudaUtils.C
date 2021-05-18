@@ -3,8 +3,6 @@
 #include <iomanip>
 
 #include <cuda_runtime.h>
-#include <helper_functions.h> 
-#include <helper_cuda.h>
 #include <cufft.h>
 
 #include "cudaUtils.h"

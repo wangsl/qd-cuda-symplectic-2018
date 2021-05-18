@@ -1,6 +1,5 @@
 
 #include <iostream>
-#include <helper_cuda.h>
 
 #include "wavepacketson1device.h"
 #include "cudaUtils.h"

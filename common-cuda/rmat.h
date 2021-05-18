@@ -41,7 +41,7 @@ public:
   RVec(double *q, int sz) : Vec<double>(sz, q) { }
 
   //By Shenglong Wang 2004-01-25
-  
+#if 0
   RVec(const Scalar_RVec &ax);
   RVec & operator =(const Scalar_RVec &ax);
   RVec(const Scalar_RVec_Sum &axby);
@@ -50,6 +50,7 @@ public:
   RVec & operator =(const Scalar_RVec_RMat &axA);
   RVec(const Scalar_RMat_RVec &aAx);
   RVec & operator =(const Scalar_RMat_RVec &aAx);
+#endif
   
   //end 2004-01-25
   
@@ -229,10 +230,10 @@ public:
   RMat(int n, int m, double *q) : Mat<double>(n, m, q) { }
 
   //By Shenglong Wang 2004-01-25
-
+#if 0
   RMat(const Scalar_RMat &aA);  
   RMat & operator =(const Scalar_RMat &aA);
-  
+#endif
   //end 2004-01-25
 
   RMat & operator=(const RMat &mat)

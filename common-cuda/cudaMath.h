@@ -6,8 +6,6 @@
 
 #include <cuda_runtime.h>
 #include <cufft.h>
-#include <helper_functions.h>
-#include <helper_cuda.h>
 
 #include "complex.h"
 
@@ -17,6 +15,7 @@ namespace cudaMath {
   
   __device__ __host__ inline double sq(const double x) { return x*x; }
 
+#if 0
   __device__ inline double atomicAdd(double *address, double val)
   {
     unsigned long long int* address_as_ull = (unsigned long long int *) address;
@@ -41,6 +40,7 @@ namespace cudaMath {
   
   __device__ inline Complex atomicAdd(Complex *sum, const Complex &val)
   { return atomicAdd(*sum, val); }
+#endif
   
   template<class T1, class T2, class T3> 
   __global__ void _vector_multiplication_(T1 *vOut, const T2 *vIn1, const T3 *vIn2, const int n)
