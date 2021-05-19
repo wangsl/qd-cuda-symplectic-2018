@@ -212,7 +212,11 @@ void WavepacketsOnSingleDevice::setup_constant_memory_on_device()
 
   checkCudaErrors(cudaMemcpyToSymbolAsync(potential_cutoff,
 					  &MatlabData::options()->potential_cutoff,
-					  sizeof(double)));
+					  sizeof(double),
+					  0,
+					  cudaMemcpyHostToDevice,
+					  0
+					  ));
 
 #if 0
   checkCudaErrors(cudaMemcpyToSymbolAsync(kinetic_cutoff,

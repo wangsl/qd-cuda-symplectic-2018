@@ -2,7 +2,7 @@
 #ifndef CUDA_MATH_H
 #define CUDA_MATH_H
 
-#ifdef __NVCC__
+#if defined __NVCC__ || defined __HIPCC__
 
 #include <cuda_runtime.h>
 #include <cufft.h>

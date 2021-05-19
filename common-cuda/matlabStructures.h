@@ -95,7 +95,7 @@ public:
   RVec b; // out
 
   SICoefficients(const mxArray *mx);
-  ~SICoefficients() { if(mx); mx = 0; }
+  ~SICoefficients() { if(mx) mx = 0; }
 
 public:
 

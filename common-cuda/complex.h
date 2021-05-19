@@ -10,7 +10,7 @@ using namespace std;
 #include <cstdlib>
 #include <cstdio>
 
-#ifdef __NVCC__
+#if defined __NVCC__ || defined __HIPCC__
 #define __DEVICE_HOST__ __device__ __host__
 #else
 #define __DEVICE_HOST__

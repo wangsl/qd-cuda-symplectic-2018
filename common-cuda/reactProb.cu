@@ -8,6 +8,10 @@
 
 #include "evolutionAux.cu"
 
+#ifdef __HIPCC__
+#define hipDoubleComplex hipblasDoubleComplex 
+#endif
+
 ReactionProbabilities::ReactionProbabilities(const OmegaWavepacket *wavepacket_) :
   wavepacket(wavepacket_),
   fai_on_surface_dev(0),
@@ -123,8 +127,8 @@ void ReactionProbabilities::calculate_reaction_probabilities()
     const Complex *dfai = d_fai_on_surface_dev + iE*n1*n_theta;
     Complex s(0.0, 0.0);
     insist(cublasZdotc(wavepacket->cublas_handle, n1*n_theta,
-		       (cuDoubleComplex *) dfai, 1,
-		       (cuDoubleComplex *) fai, 1,
+		       (const cuDoubleComplex *) dfai, 1,
+		       (const cuDoubleComplex *) fai, 1,
 		       (cuDoubleComplex *) &s) == CUBLAS_STATUS_SUCCESS);
     
     reaction_probabilities[iE] = s.imag()/eta_sq[iE]*dr1_mu2;

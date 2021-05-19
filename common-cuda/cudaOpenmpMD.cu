@@ -1,4 +1,8 @@
 
+#if defined __HIPCC__
+#include "hip/hip_runtime.h"
+#endif
+
 #include <iostream>
 #include <omp.h>
 #include <cuda_profiler_api.h>
@@ -292,7 +296,7 @@ void CUDAOpenmpMD::time_evolution()
     
     const double time_start = get_time_now_in_secs();
     
-    checkCudaErrors(cudaProfilerStart());
+    //checkCudaErrors(cudaProfilerStart());
     
     dump_wavepackets();
     
@@ -308,7 +312,7 @@ void CUDAOpenmpMD::time_evolution()
       calculate_reaction_probabilities(calculate);
     }
     
-    checkCudaErrors(cudaProfilerStop());
+    //checkCudaErrors(cudaProfilerStop());
     
     double module = 0.0;
     double energy = 0.0;

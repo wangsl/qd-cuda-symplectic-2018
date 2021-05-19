@@ -17,7 +17,7 @@
 
 namespace EvolutionUtils {
 
-#ifdef __NVCC__  
+#if defined __NVCC__ || defined __HIPCC__
   
   struct RadialCoordinate
   {
@@ -62,7 +62,7 @@ namespace EvolutionUtils {
   inline double fs_to_au(const double t) { return t/au_to_fs(1.0); }
 }
 
-#ifdef __NVCC__
+#if defined __NVCC__ || defined __HIPCC__
 extern __constant__ EvolutionUtils::RadialCoordinate r1_dev;
 extern __constant__ EvolutionUtils::RadialCoordinate r2_dev;
 extern __constant__ double energies_dev[_EnergiesMaxSize_];
