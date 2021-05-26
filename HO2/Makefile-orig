@@ -5,23 +5,25 @@
 .SUFFIXES: .F .F90 .c .C
 
 SRC = $(PWD)
-O = $(SRC)/../../build/HO2
+base_dir = /$(SRC)/..
+O = $(base_dir)/build/HO2
 
-F77 = gfortran
-F90 = gfortran
-CC = gcc
-CXX = g++
+F77 = ifort
+F90 = ifort
+CC = icc
+CXX = icpc
+NVCC = nvcc
 
-CFLAGS = -O3 -fopenmp -fPIC 
+CFLAGS = #-DI64
 
-FFLAGS = -O3 -fPIC -fopenmp -ffixed-line-length-132
+FFLAGS = -132
 
-CXXFLAGS = -O3 -fopenmp -fPIC -std=c++11 -I$(MATLAB_ROOT)/extern/include \
-	-I$(SRC)/../common-cuda 
+CXXFLAGS = -std=c++11 -I$(MATLAB_ROOT)/extern/include \
+	-I$(base_dir)/common-cuda
 
 Link = $(CXX)
 
-LIBS = -L$(SRC)/../../build/common-cuda -lqmdyn -lgfortran
+LIBS = -lifcoremt -L$(base_dir)/build/common-cuda -lqmdyn
 
 MEXA64Files = $(O)/DMBEIVMex.mexa64
 
@@ -57,7 +59,7 @@ cleancuda:
 
 depend :
 	$(CXX) $(CXXFLAGS) -MM *.[cC] | perl dep.pl > $@
-	bash fortran-dep.sh *.F >> $@
+	sh fortran-dep.sh *.F >> $@
 
 ifneq ($(MAKECMDGOALS), clean)
 include depend

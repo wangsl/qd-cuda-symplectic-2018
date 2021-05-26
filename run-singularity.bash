@@ -1,5 +1,15 @@
 #!/bin/bash
 
+# https://stackoverflow.com/questions/1668649/how-to-keep-quotes-in-bash-arguments
+
+args=''
+for i in "$@"; do 
+    i="${i//\\/\\\\}"
+    args="$args \"${i//\"/\\\"}\""
+done
+
+if [ "$args" == "" ]; then args="/bin/bash"; fi
+
 matlab="/scratch/work/public/singularity/matlab-2021a.sqf"
 
 host=$(/bin/hostname -s)
@@ -13,9 +23,15 @@ fi
     
 /share/apps/singularity/3.7.3/bin/singularity \
     exec $nv \
+    --bind /usr/bin/numactl \
     --overlay ${matlab}:ro \
     ${os_image} \
-    /bin/bash
+    /bin/bash -c "
+export MATLAB_ROOT=/ext3/apps/matlab/2021a
+export PATH=\${MATLAB_ROOT}/bin:\$PATH
+eval $args
+exit
+"
 
 exit
 

@@ -1,2 +1,2 @@
-$(O)/DMBEIVMex.o: DMBEIVMex.C /home/wang/matlab/qd-cuda-symplectic-2018/common-cuda/fort.h /home/wang/matlab/qd-cuda-symplectic-2018/common-cuda/matlabUtils.h
+$(O)/DMBEIVMex.o: DMBEIVMex.C /ext3/apps/matlab/2021a/extern/include/mex.h /ext3/apps/matlab/2021a/extern/include/matrix.h /ext3/apps/matlab/2021a/extern/include/tmwtypes.h /home/wang/hudson/src/HO2/../common-cuda/fort.h /home/wang/hudson/src/HO2/../common-cuda/matlabUtils.h
 $(O)/dmbeiv.o: dmbeiv.F
