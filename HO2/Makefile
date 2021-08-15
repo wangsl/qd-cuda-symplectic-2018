@@ -21,7 +21,7 @@ CXXFLAGS = -O3 -fopenmp -fPIC -std=c++11 -I$(MATLAB_ROOT)/extern/include \
 
 Link = $(CXX)
 
-LIBS = -L$(SRC)/../../build/common-cuda -lqmdyn -lgfortran
+LIBS = -L$(SRC)/../../build/common-cuda -L$(SRC)/../../build/common-hip -lqmdyn -lgfortran
 
 MEXA64Files = $(O)/DMBEIVMex.mexa64
 
