@@ -1,6 +1,4 @@
 
-# $Id$
-
 .DEFAULT: .F .F90 .c .C
 .SUFFIXES: .F .F90 .c .C
 
@@ -20,11 +18,11 @@ FFLAGS = -O3 -fPIC -fopenmp -ffixed-line-length-132
 NVCCINCLUDE = -I/opt/rocm/hipfft/include -I/opt/rocm/hipblas/include -I/opt/rocm/hip/include \
 	-I$(MATLAB_ROOT)/extern/include
 
-NVCCFLAGS = $(NVCCINCLUDE) -O3 -fPIC -fopenmp --amdgpu-target=gfx906 
+NVCCFLAGS = $(NVCCINCLUDE) -O3 -fPIC -fopenmp --amdgpu-target=gfx906 --amdgpu-target=gfx908
 
 CXXFLAGS = -std=c++11 -O3 -fPIC -fopenmp  -D__HIP_PLATFORM_AMD__ $(NVCCINCLUDE)
 
-Link = $(NVCC)
+Link = $(NVCC) $(NVCCFLAGS)
 
 LIBS = -L/opt/rocm/lib -lrocfft -lrocblas -lhipblas -lgomp -llapack 
 
@@ -41,9 +39,11 @@ OBJS = $(O)/cudaSymplectic.o  $(O)/matlabUtils.o \
 	$(O)/mex2matlab.o \
 	$(CUDAObjs)
 
+QMLibs = $(O)/libqmdyn.a
+
 .DEFAULT_GOAL := $(O)/cudaSymplectic.mexa64
 
-all: $(MEXA64Files)
+all: $(MEXA64Files) $(QMLibs)
 
 #$(EXE) : $(OBJS)
 #	$(Link) $(CXXFLAGS) -o $(EXE) $(OBJS) $(LIBS)
